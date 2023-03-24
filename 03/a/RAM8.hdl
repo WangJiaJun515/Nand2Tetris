@@ -1,0 +1,54 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/03/a/RAM8.hdl
+
+/**
+ * Memory of 8 registers, each 16 bit-wide. Out holds the value
+ * stored at the memory location specified by address. If load==1, then 
+ * the in value is loaded into the memory location specified by address 
+ * (the loaded value will be emitted to out from the next time step onward).
+ */
+
+CHIP RAM8 {
+    IN in[16], load, address[3];
+    OUT out[16];
+
+    PARTS:
+    // Put your code here:
+    DMux8Way(in = in[0], sel = address, a = in11, b = in21, c = in31, d = in41, e = in51, f = in61, g = in71, h = in81);
+    DMux8Way(in = in[1], sel = address, a = in12, b = in22, c = in32, d = in42, e = in52, f = in62, g = in72, h = in82);
+    DMux8Way(in = in[2], sel = address, a = in13, b = in23, c = in33, d = in43, e = in53, f = in63, g = in73, h = in83);
+    DMux8Way(in = in[3], sel = address, a = in14, b = in24, c = in34, d = in44, e = in54, f = in64, g = in74, h = in84);
+    DMux8Way(in = in[4], sel = address, a = in15, b = in25, c = in35, d = in45, e = in55, f = in65, g = in75, h = in85);
+    DMux8Way(in = in[5], sel = address, a = in16, b = in26, c = in36, d = in46, e = in56, f = in66, g = in76, h = in86);
+    DMux8Way(in = in[6], sel = address, a = in17, b = in27, c = in37, d = in47, e = in57, f = in67, g = in77, h = in87);
+    DMux8Way(in = in[7], sel = address, a = in18, b = in28, c = in38, d = in48, e = in58, f = in68, g = in78, h = in88);
+    DMux8Way(in = in[8], sel = address, a = in19, b = in29, c = in39, d = in49, e = in59, f = in69, g = in79, h = in89);
+    DMux8Way(in = in[9], sel = address, a = in110, b = in210, c = in310, d = in410, e = in510, f = in610, g = in710, h = in810);
+    DMux8Way(in = in[10], sel = address, a = in111, b = in211, c = in311, d = in411, e = in511, f = in611, g = in711, h = in811);
+    DMux8Way(in = in[11], sel = address, a = in112, b = in212, c = in312, d = in412, e = in512, f = in612, g = in712, h = in812);
+    DMux8Way(in = in[12], sel = address, a = in113, b = in213, c = in313, d = in413, e = in513, f = in613, g = in713, h = in813);
+    DMux8Way(in = in[13], sel = address, a = in114, b = in214, c = in314, d = in414, e = in514, f = in614, g = in714, h = in814);
+    DMux8Way(in = in[14], sel = address, a = in115, b = in215, c = in315, d = in415, e = in515, f = in615, g = in715, h = in815);
+    DMux8Way(in = in[15], sel = address, a = in116, b = in216, c = in316, d = in416, e = in516, f = in616, g = in716, h = in816);
+    DMux8Way(in = true, sel = address, a = l1, b = l2, c = l3, d = l4, e = l5, f = l6, g = l7, h = l8);
+    And(a = l1, b = load, out = la);
+    And(a = l2, b = load, out = lb);
+    And(a = l3, b = load, out = lc);
+    And(a = l4, b = load, out = ld);
+    And(a = l5, b = load, out = le);
+    And(a = l6, b = load, out = lf);
+    And(a = l7, b = load, out = lg);
+    And(a = l8, b = load, out = lh);
+    Register(in[0] = in11, in[1] = in12, in[2] = in13, in[3] = in14, in[4] = in15, in[5] = in16, in[6] = in17,in[7] = in18, in[8] = in19, in[9] = in110, in[10] = in111, in[11] = in112, in[12] = in113, in[13] = in114, in[14] = in115, in[15] = in116, load = la, out = a);
+    Register(in[0] = in21, in[1] = in22, in[2] = in23, in[3] = in24, in[4] = in25, in[5] = in26, in[6] = in27,in[7] = in28, in[8] = in29, in[9] = in210, in[10] = in211, in[11] = in212, in[12] = in213, in[13] = in214, in[14] = in215, in[15] = in216, load = lb, out = b);
+    Register(in[0] = in31, in[1] = in32, in[2] = in33, in[3] = in34, in[4] = in35, in[5] = in36, in[6] = in37,in[7] = in38, in[8] = in39, in[9] = in310, in[10] = in311, in[11] = in312, in[12] = in313, in[13] = in314, in[14] = in315, in[15] = in316, load = lc, out = c);
+    Register(in[0] = in41, in[1] = in42, in[2] = in43, in[3] = in44, in[4] = in45, in[5] = in46, in[6] = in47,in[7] = in48, in[8] = in49, in[9] = in410, in[10] = in411, in[11] = in412, in[12] = in413, in[13] = in414, in[14] = in415, in[15] = in416, load = ld, out = d);
+    Register(in[0] = in51, in[1] = in52, in[2] = in53, in[3] = in54, in[4] = in55, in[5] = in56, in[6] = in57,in[7] = in58, in[8] = in59, in[9] = in510, in[10] = in511, in[11] = in512, in[12] = in513, in[13] = in514, in[14] = in515, in[15] = in516, load = le, out = e);
+    Register(in[0] = in61, in[1] = in62, in[2] = in63, in[3] = in64, in[4] = in65, in[5] = in66, in[6] = in67,in[7] = in68, in[8] = in69, in[9] = in610, in[10] = in611, in[11] = in612, in[12] = in613, in[13] = in614, in[14] = in615, in[15] = in616, load = lf, out = f);
+    Register(in[0] = in71, in[1] = in72, in[2] = in73, in[3] = in74, in[4] = in75, in[5] = in76, in[6] = in77,in[7] = in78, in[8] = in79, in[9] = in710, in[10] = in711, in[11] = in712, in[12] = in713, in[13] = in714, in[14] = in715, in[15] = in716, load = lg, out = g);
+    Register(in[0] = in81, in[1] = in82, in[2] = in83, in[3] = in84, in[4] = in85, in[5] = in86, in[6] = in87,in[7] = in88, in[8] = in89, in[9] = in810, in[10] = in811, in[11] = in812, in[12] = in813, in[13] = in814, in[14] = in815, in[15] = in816, load = lh, out = h);
+    Mux8Way16(a = a, b = b, c = c, d = d, e = e, f = f, g = g, h = h, sel = address, out = out);
+
+}
